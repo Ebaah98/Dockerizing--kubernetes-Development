@@ -1,0 +1,26 @@
+#User Data field
+sudo yum update -y && \
+sudo yum install -y docker && \
+sudo usermod -a -G docker ec2-user && \
+sudo systemctl start docker.service && \
+sudo systemctl enable docker.service && \
+sudo systemctl status docker.service && \
+sudo systemctl is-active docker && \
+docker version && \
+docker info
+
+#Manager Instance into a true leader of the Docker Swarm
+docker swarm init
+
+# This command will instruct the worker node to join the Docker Swarm
+docker swarm join --token <Use the EC2 Private ip:port>  
+docker swarm join --token SWMTKN-1-4op7zout6zlau6iax4v41qct7mi0teg05kr539bcfjh145qw4z-77vbz1rtwgxcof87nljq9rvbk 172.31.92.133:2377
+
+#This command will provide list of all the nodes in your Docker Swarm cluster.
+docker node ls
+
+#Let deploy a tiered architecture
+docker service create --replicas 4 --name Emmanuel redis
+
+#Next up, we’ll create a service based on the Apache Docker image with 10 replicas.
+docker service create --replicas 10 --name Kofi httpd
