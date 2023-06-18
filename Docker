@@ -1,0 +1,26 @@
+# Use official Python image as the base image
+FROM python:3
+
+#Install app dependencies
+RUN apt-get update
+RUN apt-get -y install python3-pip \
+    && pip install boto3
+    
+ENTRYPOINT ["tail", "-f", "/dev.null'"]
+
+# let’s build our image 
+docker build -t Kofipython .
+
+#Creating Three Ubuntu Containers.
+docker run -d -t --name container1 -v "$(pwd)"/Blog:/Week16_Project ubuntu  
+docker run -d -t --name container2 -v "$(pwd)"/Emmanuel-Python-Projects:/Week16_Project ubuntu  
+docker run -d -t --name container3 -v "$(pwd)"/LevelUpTeam:/Week16_Project ubuntu   
+
+#command to list all the running Docker containers
+docker ps
+
+ #command to check the mounts for the containers seen below
+docker container inspect <container number>
+
+#Stopping and Removing Our Containers.
+docker rm -f <container_id_or_name>
