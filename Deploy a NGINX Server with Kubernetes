@@ -35,7 +35,7 @@ metadata:
 data:
   index.html: |
     <h1>This is Deployment One</h1>
-
+---
 #creating a service that points to both deployments. 
 apiVersion: v1
 kind: Service
